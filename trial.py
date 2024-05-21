@@ -3,9 +3,9 @@ import datetime
 from openai import AzureOpenAI
  
 client = AzureOpenAI(
-  azure_endpoint = "https://documentsummary.openai.azure.com/", 
-  api_key="48217fcd12eb4bc5bab443fdbb2da8c2",  
-  api_version="2024-02-15-preview"
+  azure_endpoint = "ENTER_YOUR_ENDPOINT", 
+  api_key="ENTER)YOUR_API_KEY",  
+  api_version="ENTER_YOUR_API_VERSION"
 )
 
 st.set_page_config(page_title='Wanderlust Ventures', layout= "wide")
@@ -18,9 +18,9 @@ def generate_itinerary(a):
     guid= """Do NOT halluicnate. Be Concise. You should generate any PII data of a user.    
     """
     
-    prompt1 = f"""Act a expert in generating persona's for people.
-    You have details of peoples and what are they looking for from {a}. You have to create a persona around a travel destinations in one sentence.
-    You have to be cautious, as everyone's has there own choice.
+    prompt1 = f"""Act an expert in generating personas for people.
+    You have details of peoples and what are they looking for from {a}. You have to create a persona around travel destinations in one sentence.
+    You have to be cautious, as everyone has their own choice.
     follow: {guid}
     """
     
@@ -37,14 +37,14 @@ def generate_itinerary(a):
     
     guidelines = """Generate a catchy name for the travel as well and don't forget to mention it.Do not hallucinate. Be Concise."""
     
-    prompt =f"""Act as a expert travel agent who provides the best itinerary accordingly to all age groups.
-            Itinerary should be concise and should include every day plans for {persona}.
-            Analyze the preferance and provide only the personalized itnierary related to user's preferance.
-            You should always start your itinerary from user's home place.
+    prompt =f"""Act as an expert travel agent who provides the best itinerary accordingly to all age groups.
+            An itinerary should be concise and should include everyday plans for {persona}.
+            Analyze the preference and provide only the personalized itinerary related to the user's preferences.
+            You should always start your itinerary from the user's home place.
             Follow guidelines: {guidelines}.
     """
     resp = client.chat.completions.create(
-        model="tegpoc4",
+        model="ENTER_YOUR_MODEL_NAME",
         messages=[
             {"role": "system", "content": prompt}
         ],
@@ -59,7 +59,7 @@ tab1, tab2 , tab3 = st.tabs(['Request Memo', 'Travel Preference', 'Your personal
 
 with tab1:
     title= 'User Details'
-    subhead = "We from Wanderlust Ventures kindly request your participation in completing this form. Following your submission, our travel AI-buddy will promptly create a comprehensive personalized itinerary for you on the NEXT TAB."
+    subhead = "We from Wanderlust Ventures kindly request your participation in completing this form. Following your submission, our travel AI buddy will promptly create a comprehensive personalized itinerary for you on the NEXT TAB."
     
     st.markdown(f"<h2 style='text-align: center;'>{title}</h2>", unsafe_allow_html=True)
     st.markdown(f"<h4 style='text-align: center;'><em>{subhead}<em></h4>", unsafe_allow_html=True)
@@ -93,42 +93,42 @@ with tab1:
             st.image("mountain.jpg", caption='Elevate Your Journey.')
             submit= st.button("Mountain Person? **Click here**")
             if submit:
-                a = f" {name} have selected his prefernce as mountains for trekking who's tagline is Elevate Your Journey and {name} is from {travelfrom} & looking for a dream destination i.e. {destination} he/she has a budget of {budget}/person and will be traveling for {noofdays} with {noofpeople} peoples. "
+                a = f" {name} has selected his preference as mountains for trekking who's tagline is Elevate Your Journey and {name} is from {travelfrom} & looking for a dream destination i.e. {destination} he/she has a budget of {budget}/person and will be traveling for {noofdays} with {noofpeople} peoples. "
                 #print(a)
                 with tab3:
                     mountain_itinerary= generate_itinerary(a)
-                    st.header("**Peronalized Itinerary.**")
+                    st.header("**Personalized Itinerary.**")
                     st.write(mountain_itinerary)
             
         with col2:
             st.image("beach.jpg", caption= "Where Every Wave is an Invitation.")
             submit = st.button("Beach Person? **Click here**")
             if submit:    
-                a = f" {name} have selected his prefernce as beaches and sea who's tagline is Where Every Wave is an Invitation and {name} is from {travelfrom} & looking for a various beaches around in. {destination} he/she has a budget of {budget}/person and will be traveling for {noofdays}  with {noofpeople} peoples."
+                a = f" {name} have selected his preference as beaches and sea whose tagline is Where Every Wave is an Invitation and {name} is from {travelfrom} & looking for a various beaches around in. {destination} he/she has a budget of {budget}/person and will be traveling for {noofdays}  with {noofpeople} peoples."
                 #print(a)
                 with tab3:
                     mountain_itinerary= generate_itinerary(a)
-                    st.header("**Peronalized Itinerary.**")
+                    st.header("**Personalized Itinerary.**")
                     st.write(mountain_itinerary)
             
         with col3:
             st.image("rdtp.jpg", caption="Hit the Road, Discover the Soul.")
             submit= st.button("RoadTrip? **Click here**")
             if submit:
-                a = f" {name} have selected his prefernce as roadtrip who's tagline is Hit the Road, Discover the Soul. and {name} is from {travelfrom} & looking for a dream destination i.e. {destination} he/she has a budget of {budget}/person and will be traveling for {noofdays}  with {noofpeople} peoples."
+                a = f" {name} has selected his preference as roadtrip whose tagline is Hit the Road, Discover the Soul. and {name} is from {travelfrom} & looking for a dream destination i.e. {destination} he/she has a budget of {budget}/person and will be traveling for {noofdays}  with {noofpeople} peoples."
                 #print(a)
                 with tab3:
                     mountain_itinerary= generate_itinerary(a)
-                    st.header("**Peronalized Itinerary.**")
+                    st.header("**Personalized Itinerary.**")
                     st.write(mountain_itinerary)
                     
         with col4:
             st.image("culture.jpg", caption = "Journey Through Time, Uncover Cultural Treasures.")
             submit= st.button("History & Culture? **Click here**")
             if submit:
-                a = f" {name} have selected his prefernce as cultural and historical who's tagline is Embark on a Journey Through Time, Uncover Cultural Treasures and {name} is from {travelfrom} & looking for a dream destination i.e. {destination} he/she has a budget of {budget}/person and will be traveling for {noofdays}  with {noofpeople} peoples."
+                a = f" {name} has selected his preferences as cultural and historical who's tagline is Embark on a Journey Through Time, Uncover Cultural Treasures and {name} is from {travelfrom} & looking for a dream destination i.e. {destination} he/she has a budget of {budget}/person and will be traveling for {noofdays}  with {noofpeople} peoples."
                 #print(a)
                 with tab3:
                     mountain_itinerary= generate_itinerary(a)
-                    st.header("**Peronalized Itinerary.**")
+                    st.header("**Personalized Itinerary.**")
                     st.write(mountain_itinerary)
